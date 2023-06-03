@@ -90,7 +90,7 @@ func GetPaginationSubscriptions(owner string, offset, limit int, field, value, s
 
 func getSubscription(owner string, name string) (*Subscription, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	subscription := Subscription{Owner: owner, Name: name}
@@ -102,7 +102,7 @@ func getSubscription(owner string, name string) (*Subscription, error) {
 	if existed {
 		return &subscription, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

@@ -112,7 +112,7 @@ func GetPaginationGlobalCerts(offset, limit int, field, value, sortField, sortOr
 
 func getCert(owner string, name string) (*Cert, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	cert := Cert{Owner: owner, Name: name}
@@ -124,13 +124,13 @@ func getCert(owner string, name string) (*Cert, error) {
 	if existed {
 		return &cert, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 
 func getCertByName(name string) (*Cert, error) {
 	if name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", name)
 	}
 
 	cert := Cert{Name: name}
@@ -142,7 +142,7 @@ func getCertByName(name string) (*Cert, error) {
 	if existed {
 		return &cert, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", name)
 	}
 }
 

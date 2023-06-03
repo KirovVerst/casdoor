@@ -27,6 +27,7 @@ func getDbSyncerForUser(user *User) (*Syncer, error) {
 			return syncer, nil
 		}
 	}
+
 	return nil, nil
 }
 
@@ -42,6 +43,7 @@ func getEnabledSyncerForOrganization(organization string) (*Syncer, error) {
 			return syncer, nil
 		}
 	}
+
 	return nil, nil
 }
 

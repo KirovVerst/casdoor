@@ -177,7 +177,7 @@ func extendApplicationWithOrg(application *Application) (err error) {
 
 func getApplication(owner string, name string) (*Application, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	application := Application{Owner: owner, Name: name}
@@ -199,7 +199,7 @@ func getApplication(owner string, name string) (*Application, error) {
 
 		return &application, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 
@@ -207,7 +207,7 @@ func GetApplicationByOrganizationName(organization string) (*Application, error)
 	application := Application{}
 	existed, err := adapter.Engine.Where("organization=?", organization).Get(&application)
 	if err != nil {
-		return nil, nil
+		return nil, err
 	}
 
 	if existed {
@@ -223,7 +223,7 @@ func GetApplicationByOrganizationName(organization string) (*Application, error)
 
 		return &application, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the application for organization: %s is not found", organization)
 	}
 }
 
@@ -270,7 +270,7 @@ func GetApplicationByClientId(clientId string) (*Application, error) {
 
 		return &application, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object is not found")
 	}
 }
 

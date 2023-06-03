@@ -76,7 +76,7 @@ func GetSingleSession(id string) (*Session, error) {
 	}
 
 	if !get {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", id)
 	}
 
 	return &session, nil

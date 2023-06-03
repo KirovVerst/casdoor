@@ -93,7 +93,7 @@ func GetPaginationSyncers(owner, organization string, offset, limit int, field, 
 
 func getSyncer(owner string, name string) (*Syncer, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	syncer := Syncer{Owner: owner, Name: name}
@@ -105,7 +105,7 @@ func getSyncer(owner string, name string) (*Syncer, error) {
 	if existed {
 		return &syncer, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

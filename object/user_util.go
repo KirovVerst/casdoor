@@ -26,7 +26,7 @@ import (
 
 func GetUserByField(organizationName string, field string, value string) (*User, error) {
 	if field == "" || value == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object is not found")
 	}
 
 	user := User{Owner: organizationName}
@@ -38,7 +38,7 @@ func GetUserByField(organizationName string, field string, value string) (*User,
 	if existed {
 		return &user, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object is not found")
 	}
 }
 
@@ -77,7 +77,7 @@ func GetUserByFields(organization string, field string) (*User, error) {
 		return user, err
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("the object is not found")
 }
 
 func SetUserField(user *User, field string, value string) (bool, error) {

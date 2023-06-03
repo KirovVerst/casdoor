@@ -60,7 +60,7 @@ func GetPaginationModels(owner string, offset, limit int, field, value, sortFiel
 
 func getModel(owner string, name string) (*Model, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	m := Model{Owner: owner, Name: name}
@@ -72,7 +72,7 @@ func getModel(owner string, name string) (*Model, error) {
 	if existed {
 		return &m, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

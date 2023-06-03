@@ -68,7 +68,7 @@ func GetPaginatedPricings(owner string, offset, limit int, field, value, sortFie
 
 func getPricing(owner, name string) (*Pricing, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	pricing := Pricing{Owner: owner, Name: name}
@@ -79,7 +79,7 @@ func getPricing(owner, name string) (*Pricing, error) {
 	if existed {
 		return &pricing, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

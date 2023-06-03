@@ -108,7 +108,7 @@ func GetPaginationOrganizations(owner string, offset, limit int, field, value, s
 
 func getOrganization(owner string, name string) (*Organization, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	organization := Organization{Owner: owner, Name: name}
@@ -121,7 +121,7 @@ func getOrganization(owner string, name string) (*Organization, error) {
 		return &organization, nil
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 }
 
 func GetOrganization(id string) (*Organization, error) {

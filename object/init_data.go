@@ -14,7 +14,11 @@
 
 package object
 
-import "github.com/casdoor/casdoor/util"
+import (
+	"fmt"
+
+	"github.com/casdoor/casdoor/util"
+)
 
 type InitData struct {
 	Organizations []*Organization `json:"organizations"`
@@ -35,7 +39,12 @@ type InitData struct {
 }
 
 func InitFromFile() {
-	initData, err := readInitDataFromFile("./init_data.json")
+	path := "./init_data.json"
+	if !util.FileExist(path) {
+		return
+	}
+
+	initData, err := readInitDataFromFile(path)
 	if err != nil {
 		panic(err)
 	}
@@ -91,7 +100,7 @@ func InitFromFile() {
 
 func readInitDataFromFile(filePath string) (*InitData, error) {
 	if !util.FileExist(filePath) {
-		return nil, nil
+		return nil, fmt.Errorf("the file: %s is not found", filePath)
 	}
 
 	s := util.ReadStringFromPath(filePath)

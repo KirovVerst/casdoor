@@ -270,7 +270,7 @@ func GetPaginationUsers(owner string, offset, limit int, field, value, sortField
 
 func getUser(owner string, name string) (*User, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	user := User{Owner: owner, Name: name}
@@ -282,13 +282,13 @@ func getUser(owner string, name string) (*User, error) {
 	if existed {
 		return &user, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 
 func getUserById(owner string, id string) (*User, error) {
 	if owner == "" || id == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, id))
 	}
 
 	user := User{Owner: owner, Id: id}
@@ -300,7 +300,7 @@ func getUserById(owner string, id string) (*User, error) {
 	if existed {
 		return &user, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, id))
 	}
 }
 
@@ -317,13 +317,13 @@ func getUserByWechatId(wechatOpenId string, wechatUnionId string) (*User, error)
 	if existed {
 		return user, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", wechatUnionId)
 	}
 }
 
 func GetUserByEmail(owner string, email string) (*User, error) {
 	if owner == "" || email == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, email))
 	}
 
 	user := User{Owner: owner, Email: email}
@@ -335,13 +335,13 @@ func GetUserByEmail(owner string, email string) (*User, error) {
 	if existed {
 		return &user, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, email))
 	}
 }
 
 func GetUserByPhone(owner string, phone string) (*User, error) {
 	if owner == "" || phone == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, phone))
 	}
 
 	user := User{Owner: owner, Phone: phone}
@@ -353,13 +353,13 @@ func GetUserByPhone(owner string, phone string) (*User, error) {
 	if existed {
 		return &user, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, phone))
 	}
 }
 
 func GetUserByUserId(owner string, userId string) (*User, error) {
 	if owner == "" || userId == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, userId))
 	}
 
 	user := User{Owner: owner, Id: userId}
@@ -371,7 +371,7 @@ func GetUserByUserId(owner string, userId string) (*User, error) {
 	if existed {
 		return &user, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, userId))
 	}
 }
 
@@ -438,7 +438,7 @@ func GetLastUser(owner string) (*User, error) {
 		return &user, nil
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("the object is not found")
 }
 
 func UpdateUser(id string, user *User, columns []string, isAdmin bool) (bool, error) {

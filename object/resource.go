@@ -86,7 +86,7 @@ func getResource(owner string, name string) (*Resource, error) {
 		return &resource, nil
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 }
 
 func GetResource(id string) (*Resource, error) {

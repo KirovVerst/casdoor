@@ -63,7 +63,7 @@ func GetPaginatedPlans(owner string, offset, limit int, field, value, sortField,
 
 func getPlan(owner, name string) (*Plan, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	plan := Plan{Owner: owner, Name: name}
@@ -74,7 +74,7 @@ func getPlan(owner, name string) (*Plan, error) {
 	if existed {
 		return &plan, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 
@@ -126,7 +126,6 @@ func Subscribe(owner string, user string, plan string, pricing string) (*Subscri
 	}
 
 	valid := selectedPricing != nil && selectedPricing.IsEnabled
-
 	if !valid {
 		return nil, nil
 	}
@@ -147,5 +146,6 @@ func Subscribe(owner string, user string, plan string, pricing string) (*Subscri
 			return newSubscription, nil
 		}
 	}
-	return nil, nil
+
+	return nil, fmt.Errorf("failed to subscribe")
 }

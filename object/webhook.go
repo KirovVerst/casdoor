@@ -80,7 +80,7 @@ func getWebhooksByOrganization(organization string) ([]*Webhook, error) {
 
 func getWebhook(owner string, name string) (*Webhook, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	webhook := Webhook{Owner: owner, Name: name}
@@ -92,7 +92,7 @@ func getWebhook(owner string, name string) (*Webhook, error) {
 	if existed {
 		return &webhook, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

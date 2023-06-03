@@ -14,7 +14,10 @@
 
 package pp
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
 
 type PaymentProvider interface {
 	Pay(providerName string, productName string, payerName string, paymentName string, productDisplayName string, price float64, returnUrl string, notifyUrl string) (string, error)
@@ -52,5 +55,5 @@ func GetPaymentProvider(typ string, clientId string, clientSecret string, host s
 		return pp, nil
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("the payment provider type: %s is not supported", typ)
 }

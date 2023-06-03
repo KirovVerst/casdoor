@@ -157,7 +157,7 @@ func GetPaginationGlobalProviders(offset, limit int, field, value, sortField, so
 
 func getProvider(owner string, name string) (*Provider, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	provider := Provider{Name: name}
@@ -169,7 +169,7 @@ func getProvider(owner string, name string) (*Provider, error) {
 	if existed {
 		return &provider, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 
@@ -186,7 +186,7 @@ func getDefaultAiProvider() (*Provider, error) {
 	}
 
 	if !existed {
-		return nil, nil
+		return nil, fmt.Errorf("the object is not found")
 	}
 
 	return &provider, nil
@@ -275,10 +275,6 @@ func (p *Provider) getPaymentProvider() (pp.PaymentProvider, *Cert, error) {
 		return nil, cert, err
 	}
 
-	if pProvider == nil {
-		return nil, cert, fmt.Errorf("the payment provider type: %s is not supported", p.Type)
-	}
-
 	return pProvider, cert, nil
 }
 
@@ -321,7 +317,8 @@ func GetCaptchaProviderByApplication(applicationId, isCurrentProvider, lang stri
 			return GetCaptchaProviderByOwnerName(util.GetId(provider.Provider.Owner, provider.Provider.Name), lang)
 		}
 	}
-	return nil, nil
+
+	return nil, fmt.Errorf("the object is not found")
 }
 
 func providerChangeTrigger(oldName string, newName string) error {

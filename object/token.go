@@ -111,7 +111,7 @@ func GetPaginationTokens(owner, organization string, offset, limit int, field, v
 
 func getToken(owner string, name string) (*Token, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	token := Token{Owner: owner, Name: name}
@@ -124,7 +124,7 @@ func getToken(owner string, name string) (*Token, error) {
 		return &token, nil
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 }
 
 func getTokenByCode(code string) (*Token, error) {
@@ -138,7 +138,7 @@ func getTokenByCode(code string) (*Token, error) {
 		return &token, nil
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("the object: %s is not found", code)
 }
 
 func updateUsedByCode(token *Token) bool {
@@ -227,7 +227,7 @@ func GetTokenByAccessToken(accessToken string) (*Token, error) {
 	}
 
 	if !existed {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", accessToken)
 	}
 
 	return &token, nil
@@ -241,7 +241,7 @@ func GetTokenByTokenAndApplication(token string, application string) (*Token, er
 	}
 
 	if !existed {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", token)
 	}
 
 	return &tokenResult, nil

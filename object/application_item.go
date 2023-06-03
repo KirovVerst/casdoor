@@ -14,6 +14,8 @@
 
 package object
 
+import "fmt"
+
 func (application *Application) GetProviderByCategory(category string) (*Provider, error) {
 	providers, err := GetProviders(application.Organization)
 	if err != nil {
@@ -35,7 +37,7 @@ func (application *Application) GetProviderByCategory(category string) (*Provide
 		}
 	}
 
-	return nil, nil
+	return nil, fmt.Errorf("the object is not found")
 }
 
 func (application *Application) GetEmailProvider() (*Provider, error) {

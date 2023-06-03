@@ -64,7 +64,7 @@ func GetPaginationRoles(owner string, offset, limit int, field, value, sortField
 
 func getRole(owner string, name string) (*Role, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	role := Role{Owner: owner, Name: name}
@@ -76,7 +76,7 @@ func getRole(owner string, name string) (*Role, error) {
 	if existed {
 		return &role, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

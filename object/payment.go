@@ -94,7 +94,7 @@ func GetPaginationPayments(owner string, offset, limit int, field, value, sortFi
 
 func getPayment(owner string, name string) (*Payment, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	payment := Payment{Owner: owner, Name: name}
@@ -106,7 +106,7 @@ func getPayment(owner string, name string) (*Payment, error) {
 	if existed {
 		return &payment, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

@@ -71,7 +71,7 @@ func GetPaginationProducts(owner string, offset, limit int, field, value, sortFi
 
 func getProduct(owner string, name string) (*Product, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	product := Product{Owner: owner, Name: name}
@@ -83,7 +83,7 @@ func getProduct(owner string, name string) (*Product, error) {
 	if existed {
 		return &product, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

@@ -15,6 +15,7 @@
 package object
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/casdoor/casdoor/conf"
@@ -94,7 +95,7 @@ func GetPaginationPermissions(owner string, offset, limit int, field, value, sor
 
 func getPermission(owner string, name string) (*Permission, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	permission := Permission{Owner: owner, Name: name}
@@ -106,7 +107,7 @@ func getPermission(owner string, name string) (*Permission, error) {
 	if existed {
 		return &permission, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

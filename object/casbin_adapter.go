@@ -74,7 +74,7 @@ func GetPaginationCasbinAdapters(owner, organization string, page, limit int, fi
 
 func getCasbinAdapter(owner, name string) (*CasbinAdapter, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	casbinAdapter := CasbinAdapter{Owner: owner, Name: name}
@@ -86,7 +86,7 @@ func getCasbinAdapter(owner, name string) (*CasbinAdapter, error) {
 	if existed {
 		return &casbinAdapter, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

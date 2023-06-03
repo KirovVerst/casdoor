@@ -91,7 +91,7 @@ func GetPaginationChats(owner string, offset, limit int, field, value, sortField
 
 func getChat(owner string, name string) (*Chat, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	chat := Chat{Owner: owner, Name: name}
@@ -103,7 +103,7 @@ func getChat(owner string, name string) (*Chat, error) {
 	if existed {
 		return &chat, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 

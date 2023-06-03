@@ -15,6 +15,8 @@
 package object
 
 import (
+	"fmt"
+
 	"github.com/casdoor/casdoor/util"
 )
 
@@ -87,7 +89,7 @@ func GetLdaps(owner string) ([]*Ldap, error) {
 
 func GetLdap(id string) (*Ldap, error) {
 	if util.IsStringsEmpty(id) {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", id)
 	}
 
 	ldap := Ldap{Id: id}
@@ -99,7 +101,7 @@ func GetLdap(id string) (*Ldap, error) {
 	if existed {
 		return &ldap, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", id)
 	}
 }
 

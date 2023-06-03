@@ -74,7 +74,7 @@ func GetPaginationMessages(owner, organization string, offset, limit int, field,
 
 func getMessage(owner string, name string) (*Message, error) {
 	if owner == "" || name == "" {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 
 	message := Message{Owner: owner, Name: name}
@@ -86,7 +86,7 @@ func getMessage(owner string, name string) (*Message, error) {
 	if existed {
 		return &message, nil
 	} else {
-		return nil, nil
+		return nil, fmt.Errorf("the object: %s is not found", util.GetId(owner, name))
 	}
 }
 
